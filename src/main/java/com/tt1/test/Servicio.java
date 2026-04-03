@@ -4,8 +4,13 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class Servicio {
-    private Repository repo;
-    private MailerStub mailer;
+    private IToDoRepository repo;
+    private IMailer mailer;
+
+    public Servicio(IToDoRepository repo, IMailer mailer) {
+        this.repo = repo;
+        this.mailer = mailer;
+    }
 
     public void crearNuevaTarea(String nombre, LocalDate fecha) { throw new UnsupportedOperationException("Clase aún no implementada."); }
     public void agregarEmailAgenda(String email) { throw new UnsupportedOperationException("Clase aún no implementada."); }

@@ -1,6 +1,7 @@
 package com.tt1.test;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Servicio {
@@ -12,10 +13,30 @@ public class Servicio {
         this.mailer = mailer;
     }
 
-    public void crearNuevaTarea(String nombre, LocalDate fecha) { throw new UnsupportedOperationException("Clase aún no implementada."); }
-    public void agregarEmailAgenda(String email) { throw new UnsupportedOperationException("Clase aún no implementada."); }
-    public void finalizarTarea(String nombre) { throw new UnsupportedOperationException("Clase aún no implementada."); }
-    public List<ToDo> consultarPendientes() { throw new UnsupportedOperationException("Clase aún no implementada."); }
+    public void crearNuevaTarea(String nombre, LocalDate fecha) {
+        if (nombre == null || nombre.isEmpty()) return;
+        ToDo t = new ToDo();
+        t.setNombre(nombre);
+        t.setFechaLimite(fecha);
+        repo.guardarTarea(t);
+        checkDeadlinesAndAlert();
+    }
 
-    private void checkDeadlinesAndAlert() { throw new UnsupportedOperationException("Clase aún no implementada."); }
+    public List<ToDo> consultarPendientes() {
+        checkDeadlinesAndAlert();
+
+        return new ArrayList<>();
+    }
+
+    public void agregarEmailAgenda(String email) {
+        repo.guardarEmail(email);
+    }
+
+    public void finalizarTarea(String nombre) {
+        repo.marcarComoCompletada(nombre);
+    }
+
+    private void checkDeadlinesAndAlert() {
+        System.out.println("Chequeando fechas límite...");
+    }
 }
